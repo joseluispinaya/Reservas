@@ -43,9 +43,9 @@ namespace CapaPresentacion
         {
             try
             {
-                //int respuesta = NReserva.getInstance().RegistrarReservaNuevoIdclie(xml);
-                var llega = xml;
-                int respuesta = 1;
+                int respuesta = NReserva.GetInstance().RegistrarReservaNuevoIdclie(xml);
+                //var llega = xml;
+                //int respuesta = 1;
                 if (respuesta != 0)
                 {
                     //bool not = EnviarNote();

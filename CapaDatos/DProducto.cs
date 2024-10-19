@@ -164,5 +164,49 @@ namespace CapaDatos
             }
         }
 
+        public List<EProducto> ObtenerProductosFil(string buscar)
+        {
+            List<EProducto> rptListaUsuario = new List<EProducto>();
+
+            try
+            {
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand comando = new SqlCommand("usp_ObtenerProductosFiltro", con))
+                    {
+                        comando.Parameters.AddWithValue("@Nombre", buscar);
+                        comando.CommandType = CommandType.StoredProcedure;
+                        con.Open();
+
+                        using (SqlDataReader dr = comando.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                rptListaUsuario.Add(new EProducto()
+                                {
+                                    IdProducto = Convert.ToInt32(dr["IdProducto"]),
+                                    Codigo = dr["Codigo"].ToString(),
+                                    ValorCodigo = Convert.ToInt32(dr["ValorCodigo"]),
+                                    Nombre = dr["Nombre"].ToString(),
+                                    Descripcion = dr["DescripcionProducto"].ToString(),
+                                    Imagen = dr["Foto"].ToString(),
+                                    IdCategoria = Convert.ToInt32(dr["IdCategoria"]),
+                                    PrecioUnidadVenta = float.Parse(dr["PrecioUnidadVenta"].ToString()),
+                                    Activo = Convert.ToBoolean(dr["Activo"]),
+                                    Categoria = new ECategoria() { Descripcion = dr["DescripcionCategoria"].ToString() }
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                throw new Exception("Error al obtener los productos", ex);
+            }
+
+            return rptListaUsuario;
+        }
     }
 }

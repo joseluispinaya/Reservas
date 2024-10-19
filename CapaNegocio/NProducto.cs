@@ -37,5 +37,10 @@ namespace CapaNegocio
         {
             return DProducto.GetInstance().ObtenerProductos();
         }
+
+        public List<EProducto> ObtenerProductosFil(string buscar)
+        {
+            return DProducto.GetInstance().ObtenerProductosFil(buscar);
+        }
     }
 }

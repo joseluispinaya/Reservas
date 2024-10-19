@@ -15,8 +15,12 @@
     <!-- ================== END core-css ================== -->
 	<link href="vendor/toastr/toastr.min.css" rel="stylesheet">
 	<link href="vendor/sweetalert/sweetalert.css" rel="stylesheet">
+
+	<link href="assets/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <%--<link href="assets/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />--%>
 	<link href="assets/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet"/>
-	<link href="assets/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
+	<%--<link href="assets/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet"/>
+	<link href="assets/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>--%>
 </head>
 <body class='pace-top'>
 	<!-- BEGIN #loader -->
@@ -30,7 +34,7 @@
 				<!-- BEGIN pos-menu -->
 				<div class="pos-menu">
 					<div class="logo">
-						<a href="#">
+						<a href="Login.aspx">
 							<div class="logo-img"><i class="fa fa-bowl-rice"></i></div>
 							<div class="logo-text">El Tropical</div>
 						</a>
@@ -491,8 +495,12 @@
 	<%--<script src="assets/js/demo/pos-customer-order.demo.js"></script>--%>
     <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 
-	<script src="assets/jquery-ui-1.12.1/jquery-ui.js"></script>
-	<script src="assets/timepicker/bootstrap-timepicker.js"></script>
+	<%--<script src="assets/jquery-ui-1.12.1/jquery-ui.js"></script>
+	<script src="assets/timepicker/bootstrap-timepicker.js"></script>--%>
+
+	<script src="assets/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <%--<script src="assets/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>--%>
+	<script src="assets/datepicker-es.js"></script>
 	<script src="js/Default.js" type="text/javascript"></script>
 	<!-- ================== END page-js ================== -->
 </body>

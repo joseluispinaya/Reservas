@@ -31,13 +31,14 @@ function ObtenerFechaa() {
 }
 
 $(document).ready(function () {
-    $("#txtFechaRese").datepicker();
+    $("#txtFechaRese").datepicker({ autoclose: true });
     $("#txtFechaRese").val(ObtenerFechaa());
 
+    //$('#timepicker2').timepicker();
+
     $('#timepicker2').timepicker({
-        showMeridian: false, // Desactiva AM/PM para usar formato de 24 horas
-        //minuteStep: 1,       // Opcional, intervalo de minutos
-        defaultTime: 'current', // Establece la hora actual como predeterminada
+        showMeridian: false,
+        defaultTime: 'current',
     });
 
     cargarProductosPorCatego();
@@ -80,8 +81,8 @@ function cargarProductosPorCatego() {
                         const productLink = document.createElement('a');
                         productLink.href = '#';
                         productLink.className = 'product';
-                        productLink.setAttribute('data-bs-toggle', 'modal');
-                        productLink.setAttribute('data-bs-target', '#modalPos');
+                        //productLink.setAttribute('data-bs-toggle', 'modal');
+                        //productLink.setAttribute('data-bs-target', '#modalPos');
 
                         // Agregar los atributos data-* con la información del producto
                         productLink.setAttribute('data-id', producto.IdProducto);
@@ -188,28 +189,30 @@ $(document).on('click', '.product', function (e) {
         // Si no hay sesión, redirigir al usuario a la página de login
         $('#modalSesio').modal('show');
         return;
+    } else {
+        // Obtener los datos del producto del elemento clicado
+        const idProducto = $(this).data('id');
+        const nombre = $(this).data('nombre');
+        const descripcion = $(this).data('descripcion');
+        const precio = $(this).data('precio');
+        const imagen = $(this).data('imagen');
+
+        // Pasar los datos al modal
+        $('#txtIdProducto').val(idProducto); // ID del producto
+        $('#txtNombPro').val(nombre);
+        $('#txtPresPro').val(precio);
+        $('#txtImgPro').val(imagen);
+
+        $('.modal-pos-product-img .img').css('background-image', `url(${imagen})`); // Imagen del producto
+        $('.modal-pos-product-info .fw-bold.fs-4').text(nombre); // Nombre del producto
+        $('.modal-pos-product-info .text-body').text(descripcion); // Descripción del producto
+        $('.modal-pos-product-info .fw-bolder.mb-3').text(`Bs ${precio}`); // Precio del producto
+
+        // Abrir el modal
+        $('#modalPos').modal('show');
     }
 
-    // Obtener los datos del producto del elemento clicado
-    const idProducto = $(this).data('id');
-    const nombre = $(this).data('nombre');
-    const descripcion = $(this).data('descripcion');
-    const precio = $(this).data('precio');
-    const imagen = $(this).data('imagen');
-
-    // Pasar los datos al modal
-    $('#txtIdProducto').val(idProducto); // ID del producto
-    $('#txtNombPro').val(nombre);
-    $('#txtPresPro').val(precio);
-    $('#txtImgPro').val(imagen);
-
-    $('.modal-pos-product-img .img').css('background-image', `url(${imagen})`); // Imagen del producto
-    $('.modal-pos-product-info .fw-bold.fs-4').text(nombre); // Nombre del producto
-    $('.modal-pos-product-info .text-body').text(descripcion); // Descripción del producto
-    $('.modal-pos-product-info .fw-bolder.mb-3').text(`Bs ${precio}`); // Precio del producto
-
-    // Abrir el modal
-    $('#modalPos').modal('show');
+    
 });
 
 $('#btnIniciarSesiC').on('click', function () {
