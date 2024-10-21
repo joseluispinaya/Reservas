@@ -311,20 +311,20 @@ $('#btnTerminarvent').on('click', function () {
                 $("#txtDocumentoClienteat").val("");
                 $("#txtcelu").val("");
 
-                swal("Mensaje", response.d.Mensaje, "success");
+                //swal("Mensaje", response.d.Mensaje, "success");
 
-                //var url = 'frmDocVenta.aspx?id=' + response.d.Valor;
+                var url = 'FrmDocVenta.aspx?id=' + response.d.Valor;
 
-                //$("#overlay").LoadingOverlay("show");
-                //var popup = window.open(url, '', 'height=600,width=800,scrollbars=0,location=1,toolbar=0');
+                $("#overlay").LoadingOverlay("show");
+                var popup = window.open(url, '', 'height=600,width=800,scrollbars=0,location=1,toolbar=0');
 
-                //var timer = setInterval(function () {
-                //    if (popup.closed) {
-                //        clearInterval(timer);
-                //        $("#overlay").LoadingOverlay("hide");
-                //        window.location.href = 'frmReservas.aspx';
-                //    }
-                //}, 500);
+                var timer = setInterval(function () {
+                    if (popup.closed) {
+                        clearInterval(timer);
+                        $("#overlay").LoadingOverlay("hide");
+                        window.location.href = 'FrmReservas.aspx';
+                    }
+                }, 500);
 
 
                 //window.open(url, '', 'height=600,width=800,scrollbars=0,location=1,toolbar=0');

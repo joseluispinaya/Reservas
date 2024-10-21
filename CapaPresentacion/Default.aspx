@@ -70,7 +70,10 @@
                                 </button>
                             </div>
                             <div class="icon"><i class="fa fa-plate-wheat"></i></div>
-                            <div class="title">Detalle</div>
+                            <div id="sesioTaba" class="title" role="button" tabindex="0" style="cursor: pointer;">
+								Login
+							</div>
+                            <%--<div class="title">Detalle</div>--%>
                             <div class="order">Pedido: <b>#0056</b></div>
                         </div>
 
@@ -82,7 +85,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#orderHistoryTab">Historial (0)
+                                    <a id="totHis" class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#orderHistoryTab">0 Orden
+                                    </a>
+                                </li>
+                                <li class="nav-item" id="regCli">
+                                    <a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#registroCliTab">Registro
                                     </a>
                                 </li>
                             </ul>
@@ -99,13 +106,55 @@
 
                             <!-- Historial de órdenes (vacio por ahora) -->
                             <div class="tab-pane fade h-100" id="orderHistoryTab">
-                                <div class="h-100 d-flex align-items-center justify-content-center text-center p-20">
-                                    <div>
-                                        <div class="mb-3 mt-n5"></div>
-                                        <h4>Sin historial</h4>
+                                <div class="pos-table">
+                                </div>
+                            </div>
+
+                            <!-- Registro de cliente (vacio por ahora) -->
+                            <div class="tab-pane fade h-100" id="registroCliTab">
+                                <div class="pos-table" style="margin-top: 10px">
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="txtnombreT">Nombre</label>
+                                                <input class="form-control form-control-sm model" type="text" id="txtnombreT" placeholder="Nombre completo" name="Nombre" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="txtClaveT">Contraseña</label>
+                                                <input class="form-control form-control-sm model" type="password" id="txtClaveT" placeholder="Contraseña" name="Contraseña" />
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="txtnumerodocT">Nro CI</label>
+                                                <input class="form-control form-control-sm model" type="text" id="txtnumerodocT" name="Documento" placeholder="Nro Documento" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="txtCelularT">Nro Celular</label>
+                                                <input class="form-control form-control-sm model" type="text" id="txtCelularT" name="Celular" placeholder="Nro Celular" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xl-8">
+                                            <div class="mb-3">
+                                                <label class="form-label" for="txtDireccionT">Direccion</label>
+                                                <input class="form-control form-control-sm model" type="text" id="txtDireccionT" placeholder="Direccion" name="Direccion" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <div class="mb-3">
+                                                <button id="btnGuardarRT" type="button" class="btn btn-lime"><i class="fas fa-pencil me-2"></i>Registrar</button>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
 
                         <!-- Pie de la barra lateral con totales -->
@@ -113,10 +162,6 @@
                             <div class="d-flex align-items-center mb-2">
                                 <div>Can Total</div>
                                 <div class="flex-1 text-end h6 mb-0">0</div>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <div>Iva (6%)</div>
-                                <div class="flex-1 text-end h6 mb-0">Bs 2.12</div>
                             </div>
                             <hr class="opacity-1 my-10px">
                             <div class="d-flex align-items-center mb-2">
@@ -141,208 +186,13 @@
                     </div>
                 </div>
 
-				<%--<div class="pos-sidebar">
-					<div class="h-100 d-flex flex-column p-0">
-						<div class="pos-sidebar-header">
-							<div class="back-btn">
-								<button type="button" data-dismiss-class="pos-sidebar-mobile-toggled" data-target="#pos" class="btn border-0">
-									<i class="fa fa-chevron-left"></i>
-								</button>
-							</div>
-							<div class="icon"><i class="fa fa-plate-wheat"></i></div>
-							<div class="title">Table 01</div>
-							<div class="order">Order: <b>#0056</b></div>
-						</div>
-						<div class="pos-sidebar-nav">
-							<ul class="nav nav-tabs nav-fill">
-								<li class="nav-item">
-									<a class="nav-link active" href="#" data-bs-toggle="tab" data-bs-target="#newOrderTab">New Order (5)</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#" data-bs-toggle="tab" data-bs-target="#orderHistoryTab">Order History (0)</a>
-								</li>
-							</ul>
-						</div>
-						<div class="pos-sidebar-body tab-content" data-scrollbar="true" data-height="100%">
-							<div class="tab-pane fade h-100 show active" id="newOrderTab">
-								<div class="pos-table">
-									<div class="row pos-table-row">
-										<div class="col-9">
-											<div class="pos-product-thumb">
-												<div class="img" style="background-image: url(../assets/img/pos/product-2.jpg)"></div>
-												<div class="info">
-													<div class="title">Grill Pork Chop</div>
-													<div class="single-price">$12.99</div>
-													<div class="desc">- size: large</div>
-													<div class="input-group qty">
-														<div class="input-group-append">
-															<a href="#" class="btn btn-default"><i class="fa fa-minus"></i></a>
-														</div>
-														<input type="text" class="form-control" value="01" />
-														<div class="input-group-prepend">
-															<a href="#" class="btn btn-default"><i class="fa fa-plus"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-3 total-price">$12.99</div>
-									</div>
-									<div class="row pos-table-row">
-										<div class="col-9">
-											<div class="pos-product-thumb">
-												<div class="img" style="background-image: url(../assets/img/pos/product-8.jpg)"></div>
-												<div class="info">
-													<div class="title">Orange Juice</div>
-													<div class="single-price">$5.00</div>
-													<div class="desc">
-														- size: large<br />
-														- less ice
-													</div>
-													<div class="input-group qty">
-														<div class="input-group-append">
-															<a href="#" class="btn btn-default"><i class="fa fa-minus"></i></a>
-														</div>
-														<input type="text" class="form-control" value="02" />
-														<div class="input-group-prepend">
-															<a href="#" class="btn btn-default"><i class="fa fa-plus"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-3 total-price">$10.00</div>
-									</div>
-									<div class="row pos-table-row">
-										<div class="col-9">
-											<div class="pos-product-thumb">
-												<div class="img" style="background-image: url(../assets/img/pos/product-1.jpg)"></div>
-												<div class="info">
-													<div class="title">Grill chicken chop</div>
-													<div class="single-price">$10.99</div>
-													<div class="desc">
-														- size: large<br />
-														- spicy: medium
-													</div>
-													<div class="input-group qty">
-														<div class="input-group-append">
-															<a href="#" class="btn btn-default"><i class="fa fa-minus"></i></a>
-														</div>
-														<input type="text" class="form-control" value="01" />
-														<div class="input-group-prepend">
-															<a href="#" class="btn btn-default"><i class="fa fa-plus"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-3 total-price">$10.99</div>
-									</div>
-									<div class="row pos-table-row">
-										<div class="col-9">
-											<div class="pos-product-thumb">
-												<div class="img" style="background-image: url(../assets/img/pos/product-5.jpg)"></div>
-												<div class="info">
-													<div class="title">Hawaiian Pizza</div>
-													<div class="single-price">$15.00</div>
-													<div class="desc">
-														- size: large<br />
-														- more onion
-													</div>
-													<div class="input-group qty">
-														<div class="input-group-append">
-															<a href="#" class="btn btn-default"><i class="fa fa-minus"></i></a>
-														</div>
-														<input type="text" class="form-control" value="01" />
-														<div class="input-group-prepend">
-															<a href="#" class="btn btn-default"><i class="fa fa-plus"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-3 total-price">$15.00</div>
-										<div class="pos-remove-confirmation">
-											<div class="text-center mx-auto">
-												<div><i class="far fa-trash-can fa-2x text-body text-opacity-50"></i></div>
-												<div class="mt-1 mb-2">Confirm to remove this item? </div>
-												<div>
-													<a href="#" class="btn btn-default w-60px me-2">No</a>
-													<a href="#" class="btn btn-danger w-60px">Yes</a>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row pos-table-row">
-										<div class="col-9">
-											<div class="pos-product-thumb">
-												<div class="img" style="background-image: url(../assets/img/pos/product-10.jpg)"></div>
-												<div class="info">
-													<div class="title">Mushroom Soup</div>
-													<div class="single-price">$3.99</div>
-													<div class="desc">
-														- size: large<br />
-														- more cheese
-													</div>
-													<div class="input-group qty">
-														<div class="input-group-append">
-															<a href="#" class="btn btn-default"><i class="fa fa-minus"></i></a>
-														</div>
-														<input type="text" class="form-control" value="01" />
-														<div class="input-group-prepend">
-															<a href="#" class="btn btn-default"><i class="fa fa-plus"></i></a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-3 total-price">$3.99</div>
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane fade h-100" id="orderHistoryTab">
-								<div class="h-100 d-flex align-items-center justify-content-center text-center p-20">
-									<div>
-										<div class="mb-3 mt-n5">
-											<svg width="6em" height="6em" viewBox="0 0 16 16" class="text-gray-300" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z"/>
-												<path d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z"/>
-											</svg>
-										</div>
-										<h4>No order history found</h4>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="pos-sidebar-footer">
-							<div class="d-flex align-items-center mb-2">
-								<div>Subtotal</div>
-								<div class="flex-1 text-end h6 mb-0">$30.98</div>
-							</div>
-							<div class="d-flex align-items-center">
-								<div>Taxes (6%)</div>
-								<div class="flex-1 text-end h6 mb-0">$2.12</div>
-							</div>
-							<hr class="opacity-1 my-10px">
-							<div class="d-flex align-items-center mb-2">
-								<div>Total</div>
-								<div class="flex-1 text-end h4 mb-0">$33.10</div>
-							</div>
-							<div class="d-flex align-items-center mt-3">
-								<a href="#" class="btn btn-default rounded-3 text-center me-10px w-70px"><i class="fa fa-bell d-block fs-18px my-1"></i> Service</a>
-								<a href="#" class="btn btn-default rounded-3 text-center me-10px w-70px"><i class="fa fa-receipt d-block fs-18px my-1"></i> Bill</a>
-								<a href="#" class="btn btn-theme rounded-3 text-center flex-1"><i class="fa fa-shopping-cart d-block fs-18px my-1"></i> Submit Order</a>
-							</div>
-						</div>
-					</div>
-				</div>--%>
 			</div>
 			<!-- END pos -->
 			
 			<!-- BEGIN pos-mobile-sidebar-toggler -->
 			<a href="#" class="pos-mobile-sidebar-toggler" data-toggle-class="pos-sidebar-mobile-toggled" data-target="#pos">
 				<i class="iconify display-6" data-icon="solar:bag-smile-bold-duotone"></i>
-				<span class="badge">5</span>
+				<span id="cantimobil" class="badge">0</span>
 			</a>
 			<!-- END pos-mobile-sidebar-toggler -->
 		</div>
@@ -379,7 +229,7 @@
                             <hr />
                             <div class="mb-3">
                                 <div class="fw-bold fs-6">Size</div>
-                                <div class="option-list">
+                                <%--<div class="option-list">
                                     <div class="option">
                                         <input type="radio" id="size3" name="size" class="option-input" checked />
                                         <label class="option-label" for="size3">
@@ -401,7 +251,7 @@
                                             <span class="option-price">+1.50</span>
                                         </label>
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                             <hr />
                             <div class="row gx-3">
@@ -464,7 +314,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-3">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="txtuser">Nro CI</label>
+                            <input class="form-control form-control-sm" type="text" id="txtuser" placeholder="Nro Documento" name="NroCI" />
+                        </div>
+
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="txtpassword">Contraseña</label>
+                            <input class="form-control form-control-sm" type="password" id="txtpassword" name="ClaveC" placeholder="Contraseña" />
+                        </div>
+
+                    </div>
+                </div>
+                <%--<div class="mb-3">
                     <label class="form-label" for="txtuser">Nro CI</label>
                     <input class="form-control" type="text" id="txtuser" />
                 </div>
@@ -474,7 +340,7 @@
                 </div>
                 <div class="mb-3">
                     <a class="waves-effect" href="#">Crear una cuenta</a>
-                </div>
+                </div>--%>
             </div>
             <div class="modal-footer">
                 <a href="javascript:;" class="btn btn-white" data-bs-dismiss="modal">Cancelar</a>
@@ -483,6 +349,121 @@
         </div>
     </div>
 </div>
+
+    <div class="modal fade" id="modalDetalleRe" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="moalLab">Informacion de Reserva</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <input id="txtIdReserrvd" class="model" name="IdReser" value="0" type="hidden" />
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="lblnamecli">Nombre</label>
+                                <input class="form-control form-control-sm" type="text" id="lblnamecli" disabled />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="lblnroci">Nro CI</label>
+                                <input class="form-control form-control-sm" type="text" id="lblnroci" disabled />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="lblcelua">Nro Celular</label>
+                                <input class="form-control form-control-sm" type="text" id="lblcelua" disabled />
+                            </div>
+
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="lblestados">Estado</label>
+                                <input class="form-control form-control-sm" type="text" id="lblestados" disabled />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="lblcodre">Nro Reserva</label>
+                                <input class="form-control form-control-sm" type="text" id="lblcodre" disabled />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="lblfechres">Fecha Reserva</label>
+                                <input class="form-control form-control-sm" type="text" id="lblfechres" disabled />
+                            </div>
+
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="lblcoment">Comentario</label>
+                                <textarea class="form-control" rows="3" id="lblcoment" disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-8">
+
+                            <div class="panel panel-inverse">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Detalle Productos</h4>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <table id="tbmispedid"
+                                                class="table table-striped table-bordered align-middle text-nowrap"
+                                                cellspacing="0" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Producto Cant</th>
+                                                        <th>Precio</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="panel panel-inverse">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Detalle Total</h4>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <div class="input-group-text">Cantidad:</div>
+                                            <input type="text" class="form-control" id="lblcanti" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="input-group">
+                                            <div class="input-group-text">Total:</div>
+                                            <input type="text" class="form-control" id="lbltot" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" class="btn btn-white" data-bs-dismiss="modal">Cancelar</a>
+                    <button id="btnCancelar" type="button" class="btn btn-success">Cancelar Reserva</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ================== BEGIN core-js ================== -->
 	<script src="assets/js/vendor.min.js"></script>

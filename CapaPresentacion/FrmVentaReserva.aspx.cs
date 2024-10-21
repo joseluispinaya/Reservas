@@ -7,7 +7,6 @@ using System.Web.UI.WebControls;
 using CapaEntidad;
 using CapaNegocio;
 using System.Web.Services;
-using System.Web.Services.Description;
 
 namespace CapaPresentacion
 {
@@ -52,6 +51,21 @@ namespace CapaPresentacion
             catch (Exception ex)
             {
                 return new Respuesta<int>() { Estado = false, Mensaje = $"Error al registrar la venta: {ex.Message}" };
+            }
+        }
+
+        [WebMethod]
+        public static Respuesta<EVenta> DetalleVenta(int IdVenta)
+        {
+            try
+            {
+                Respuesta<EVenta> oVenta = NVenta.GetInstance().ObtenerDetalleVenta(IdVenta);
+                return oVenta;
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                return new Respuesta<EVenta>() { Estado = false, Data = null, Mensaje = ex.Message };
             }
         }
     }

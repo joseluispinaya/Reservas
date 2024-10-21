@@ -1,48 +1,35 @@
 ﻿
-
 var table;
 
 const MODELO_BASE = {
-    IdProducto: 0,
-    Nombre: "",
-    Descripcion: "",
-    IdCategoria: 0,
-    PrecioUnidadVenta: 0.0, // Inicializado como float
-    //PrecioUnidadVenta: "",
-    Activo: true,
-    ImageFulP: ""
-}
-
-function ObtenerFecha() {
-
-    var d = new Date();
-    var month = d.getMonth() + 1;
-    var day = d.getDate();
-    var output = (('' + day).length < 2 ? '0' : '') + day + '/' + (('' + month).length < 2 ? '0' : '') + month + '/' + d.getFullYear();
-
-    return output;
+    IdUsuario: 0,
+    Nombres: "",
+    Apellidos: "",
+    Correo: "",
+    IdRol: 0,
+    Estado: true,
+    ImageFull: ""
 }
 
 $(document).ready(function () {
-
-    $("#txtFechaa").val(ObtenerFecha());
-    dtProduc();
-    cargarCatego();
+    
+    dtUsuarios();
+    cargarRoles();
 })
 
-function dtProduc() {
+function dtUsuarios() {
     // Verificar si el DataTable ya está inicializado
-    if ($.fn.DataTable.isDataTable("#tbProduct")) {
+    if ($.fn.DataTable.isDataTable("#tbUsuario")) {
         // Destruir el DataTable existente
-        $("#tbProduct").DataTable().destroy();
+        $("#tbUsuario").DataTable().destroy();
         // Limpiar el contenedor del DataTable
-        $('#tbProduct tbody').empty();
+        $('#tbUsuario tbody').empty();
     }
 
-    table = $("#tbProduct").DataTable({
+    table = $("#tbUsuario").DataTable({
         responsive: true,
         "ajax": {
-            "url": 'FrmProductos.aspx/ObtenerProd',
+            "url": 'FrmUsuarios.aspx/ObtenerUsuario',
             "type": "POST", // Cambiado a POST
             "contentType": "application/json; charset=utf-8",
             "dataType": "json",
@@ -59,17 +46,18 @@ function dtProduc() {
             }
         },
         "columns": [
-            { "data": "IdProducto", "visible": false, "searchable": false },
+            { "data": "IdUsuario", "visible": false, "searchable": false },
             {
-                "data": "ImageFulP", render: function (data) {
+                "data": "ImageFull", render: function (data) {
                     return `<img style="height:40px" src=${data} class="rounded mx-auto d-block"/>`
                 }
             },
-            { "data": "Categoria.Descripcion" },
-            { "data": "Nombre" },
-            { "data": "PrecioUnidadVenta" },
+            { "data": "Rol.NomRol" },
+            { "data": "Nombres" },
+            { "data": "Apellidos" },
+            { "data": "Correo" },
             {
-                "data": "Activo", render: function (data) {
+                "data": "Estado", render: function (data) {
                     if (data == true)
                         return '<span class="badge badge-info">Activo</span>';
                     else
@@ -90,9 +78,9 @@ function dtProduc() {
                 text: 'Exportar Excel',
                 extend: 'excelHtml5',
                 title: '',
-                filename: 'Reporte Productos',
+                filename: 'Reporte Usuarios',
                 exportOptions: {
-                    columns: [2, 3, 4, 5] // Ajusta según las columnas que desees exportar
+                    columns: [2, 3, 4, 5, 6] // Ajusta según las columnas que desees exportar
                 }
             },
             'pageLength'
@@ -103,12 +91,13 @@ function dtProduc() {
     });
 }
 
-function cargarCatego() {
-    $("#cboCatego").html("");
+
+function cargarRoles() {
+    $("#cboRol").html("");
 
     $.ajax({
         type: "POST",
-        url: "FrmProductos.aspx/ObtenerCatego",
+        url: "FrmUsuarios.aspx/ObtenerRol",
         data: {},
         contentType: 'application/json; charset=utf-8',
         error: function (xhr, ajaxOptions, thrownError) {
@@ -118,7 +107,7 @@ function cargarCatego() {
             if (data.d.Estado) {
                 $.each(data.d.Data, function (i, row) {
                     if (row.Activo == true) {
-                        $("<option>").attr({ "value": row.IdCategoria }).text(row.Descripcion).appendTo("#cboCatego");
+                        $("<option>").attr({ "value": row.Idrol }).text(row.NomRol).appendTo("#cboRol");
                     }
 
                 })
@@ -133,7 +122,7 @@ function mostrarImagenSeleccionada(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#imgUsuarioP').attr('src', e.target.result);
+            $('#imgUsuarioM').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -143,7 +132,7 @@ function mostrarImagenSeleccionada(input) {
         var nextSibling = $(input).next('.custom-file-label');
         nextSibling.text(fileName);
     } else {
-        $('#imgUsuarioP').attr('src', "Imagenes/Sinfotop.png");
+        $('#imgUsuarioM').attr('src', "Imagenes/Sinfotop.png");
 
         // Restablece el texto del label
         var nextSibling = $(input).next('.custom-file-label');
@@ -153,7 +142,7 @@ function mostrarImagenSeleccionada(input) {
 
 }
 
-$('#txtFotoP').change(function () {
+$('#txtFotoS').change(function () {
     mostrarImagenSeleccionada(this);
 });
 
@@ -161,32 +150,33 @@ function mostrarModal(modelo, cboEstadoDeshabilitado = true) {
     // Verificar si modelo es null
     modelo = modelo ?? MODELO_BASE;
 
-    $("#txtIdProducto").val(modelo.IdProducto);
-    $("#txtNombrePr").val(modelo.Nombre);
-    $("#txtDescripcionPr").val(modelo.Descripcion);
-    $("#cboCatego").val(modelo.IdCategoria == 0 ? $("#cboCatego option:first").val() : modelo.IdCategoria);
-    $("#txtPrecioPr").val(modelo.PrecioUnidadVenta);
-    $("#cboEstadoPr").val(modelo.Activo == true ? 1 : 0);
-    $("#imgUsuarioP").attr("src", modelo.ImageFulP == "" ? "Imagenes/Sinfotop.png" : modelo.ImageFulP);
+    $("#txtIdUsuario").val(modelo.IdUsuario);
+    $("#txtNombres").val(modelo.Nombres);
+    $("#txtApellidos").val(modelo.Apellidos);
+    $("#txtCorreo").val(modelo.Correo);
+    $("#cboRol").val(modelo.IdRol == 0 ? $("#cboRol option:first").val() : modelo.IdRol);
+    $("#cboEstado").val(modelo.Estado == true ? 1 : 0);
+    $("#imgUsuarioM").attr("src", modelo.ImageFull == "" ? "Imagenes/Sinfotop.png" : modelo.ImageFull);
 
     // Configurar el estado de cboEstado según cboEstadoDeshabilitado jquery v 1.11.1
-    $("#cboEstadoPr").prop("disabled", cboEstadoDeshabilitado);
+    $("#cboEstado").prop("disabled", cboEstadoDeshabilitado);
 
     //$("#txtCorreo").prop("disabled", !cboEstadoDeshabilitado);
 
     // Limpiar el input file y restablecer el texto del label
-    $("#txtFotoP").val("");
+    $("#txtFotoS").val("");
     $(".custom-file-label").text('Ningún archivo seleccionado');
 
     if (cboEstadoDeshabilitado) {
-        $("#myTitulop").text("Nuevo Producto");
+        $("#myLarlLabel").text("Nuevo Registro");
     } else {
-        $("#myTitulop").text("Editar Producto");
+        $("#myLarlLabel").text("Editar Registro");
     }
 
-    $("#modalrolp").modal("show");
+    $("#modalrol").modal("show");
 }
-$("#tbProduct tbody").on("click", ".btn-editar", function (e) {
+
+$("#tbUsuario tbody").on("click", ".btn-editar", function (e) {
     e.preventDefault();
     let filaSeleccionada;
 
@@ -200,15 +190,15 @@ $("#tbProduct tbody").on("click", ".btn-editar", function (e) {
     mostrarModal(model, false);
 })
 
-$('#btnNuevoProd').on('click', function () {
+$('#btnNuevoRol').on('click', function () {
     mostrarModal(null, true);
-    //$("#modalrolp").modal("show");
+    //$("#modalrol").modal("show");
 })
 
 function sendDataToServer(request) {
     $.ajax({
         type: "POST",
-        url: "FrmProductos.aspx/Guardar",
+        url: "FrmUsuarios.aspx/Guardar",
         data: JSON.stringify(request),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -218,8 +208,8 @@ function sendDataToServer(request) {
         success: function (response) {
             $(".modal-content").LoadingOverlay("hide");
             if (response.d.Estado) {
-                dtProduc();
-                $('#modalrolp').modal('hide');
+                dtUsuarios();
+                $('#modalrol').modal('hide');
                 swal("Mensaje", response.d.Mensaje, "success");
             } else {
                 swal("Mensaje", response.d.Mensaje, "warning");
@@ -231,23 +221,21 @@ function sendDataToServer(request) {
         },
         complete: function () {
             // Rehabilitar el botón después de que la llamada AJAX se complete (éxito o error)
-            $('#btnGuardarCambiosP').prop('disabled', false);
+            $('#btnGuardarCambios').prop('disabled', false);
         }
     });
 }
 
-
 function registerDataAjax() {
-    var fileInput = document.getElementById('txtFotoP');
+    var fileInput = document.getElementById('txtFotoS');
     var file = fileInput.files[0];
 
     const modelo = structuredClone(MODELO_BASE);
-    modelo["IdProducto"] = parseInt($("#txtIdProducto").val());
-    modelo["Nombre"] = $("#txtNombrePr").val();
-    modelo["Descripcion"] = $("#txtDescripcionPr").val();
-    modelo["PrecioUnidadVenta"] = parseFloat($("#txtPrecioPr").val()); // Convertir a float
-    //modelo["PrecioUnidadVenta"] = $("#txtPrecioPr").val();
-    modelo["IdCategoria"] = $("#cboCatego").val();
+    modelo["IdUsuario"] = parseInt($("#txtIdUsuario").val());
+    modelo["Nombres"] = $("#txtNombres").val();
+    modelo["Apellidos"] = $("#txtApellidos").val();
+    modelo["Correo"] = $("#txtCorreo").val();
+    modelo["IdRol"] = $("#cboRol").val();
 
     if (file) {
 
@@ -255,7 +243,7 @@ function registerDataAjax() {
         if (file.size > maxSize) {
             swal("Mensaje", "La imagen seleccionada es demasiado grande max 1.5 Mb.", "warning");
             // Rehabilitar el botón si hay un error de validación
-            $('#btnGuardarCambiosP').prop('disabled', false);
+            $('#btnGuardarCambios').prop('disabled', false);
             return;
         }
 
@@ -266,7 +254,7 @@ function registerDataAjax() {
             var bytes = new Uint8Array(arrayBuffer);
 
             var request = {
-                oProducto: modelo,
+                oUsuario: modelo,
                 imageBytes: Array.from(bytes)
             };
 
@@ -277,7 +265,7 @@ function registerDataAjax() {
     } else {
         // Si no se selecciona ningún archivo, envía un valor nulo o vacío para imageBytes
         var request = {
-            oProducto: modelo,
+            oUsuario: modelo,
             imageBytes: null // o cualquier otro valor que indique que no se envió ningún archivo
         };
 
@@ -288,7 +276,7 @@ function registerDataAjax() {
 function sendDataToServerEditU(request) {
     $.ajax({
         type: "POST",
-        url: "FrmProductos.aspx/EditarProducto",
+        url: "FrmUsuarios.aspx/EditarUsuario",
         data: JSON.stringify(request),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -298,8 +286,8 @@ function sendDataToServerEditU(request) {
         success: function (response) {
             $(".modal-content").LoadingOverlay("hide");
             if (response.d.Estado) {
-                dtProduc();
-                $('#modalrolp').modal('hide');
+                dtUsuarios();
+                $('#modalrol').modal('hide');
                 swal("Mensaje", response.d.Mensaje, "success");
             } else {
                 swal("Mensaje", response.d.Mensaje, "warning");
@@ -311,23 +299,22 @@ function sendDataToServerEditU(request) {
         },
         complete: function () {
             // Rehabilitar el botón después de que la llamada AJAX se complete (éxito o error)
-            $('#btnGuardarCambiosP').prop('disabled', false);
+            $('#btnGuardarCambios').prop('disabled', false);
         }
     });
 }
 
-
 function editarDataAjaxU() {
-    var fileInput = document.getElementById('txtFotoP');
+    var fileInput = document.getElementById('txtFotoS');
     var file = fileInput.files[0];
 
     const modelo = structuredClone(MODELO_BASE);
-    modelo["IdProducto"] = parseInt($("#txtIdProducto").val());
-    modelo["Nombre"] = $("#txtNombrePr").val();
-    modelo["Descripcion"] = $("#txtDescripcionPr").val();
-    modelo["PrecioUnidadVenta"] = parseFloat($("#txtPrecioPr").val()); // Convertir a float
-    modelo["Activo"] = ($("#cboEstadoPr").val() == "1" ? true : false);
-    modelo["IdCategoria"] = $("#cboCatego").val();
+    modelo["IdUsuario"] = parseInt($("#txtIdUsuario").val());
+    modelo["Nombres"] = $("#txtNombres").val();
+    modelo["Apellidos"] = $("#txtApellidos").val();
+    modelo["Correo"] = $("#txtCorreo").val();
+    modelo["IdRol"] = $("#cboRol").val();
+    modelo["Estado"] = ($("#cboEstado").val() == "1" ? true : false);
 
     if (file) {
 
@@ -335,7 +322,7 @@ function editarDataAjaxU() {
         if (file.size > maxSize) {
             swal("Mensaje", "La imagen seleccionada es demasiado grande max 1.5 Mb.", "warning");
             // Rehabilitar el botón si hay un error de validación
-            $('#btnGuardarCambiosP').prop('disabled', false);
+            $('#btnGuardarCambios').prop('disabled', false);
             return;
         }
 
@@ -346,7 +333,7 @@ function editarDataAjaxU() {
             var bytes = new Uint8Array(arrayBuffer);
 
             var request = {
-                oProducto: modelo,
+                oUsuario: modelo,
                 imageBytes: Array.from(bytes)
             };
 
@@ -357,48 +344,51 @@ function editarDataAjaxU() {
     } else {
         // Si no se selecciona ningún archivo, envía un valor nulo o vacío para imageBytes
         var request = {
-            oProducto: modelo,
+            oUsuario: modelo,
             imageBytes: null // o cualquier otro valor que indique que no se envió ningún archivo
         };
 
         sendDataToServerEditU(request);
     }
 }
-$('#btnGuardarCambiosP').on('click', function () {
+function esCorreoValido(correo) {
+    // Expresión regular mejorada para validar correos electrónicos
+    var emailRegex = /^[a-zA-Z0-9._%+-ñÑáéíóúÁÉÍÓÚ]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return correo !== "" && emailRegex.test(correo);
+}
+
+$('#btnGuardarCambios').on('click', function () {
 
     // Deshabilitar el botón para evitar múltiples envíos
-    $('#btnGuardarCambiosP').prop('disabled', true);
+    $('#btnGuardarCambios').prop('disabled', true);
 
-    const inputs = $("input.model").serializeArray();
+    const inputs = $("input.input-validar").serializeArray();
     const inputs_sin_valor = inputs.filter((item) => item.value.trim() == "")
 
     if (inputs_sin_valor.length > 0) {
         const mensaje = `Debe completar el campo : "${inputs_sin_valor[0].name}"`;
         toastr.warning("", mensaje)
         $(`input[name="${inputs_sin_valor[0].name}"]`).focus()
-
-        // Rehabilitar el botón si hay campos vacíos
-        $('#btnGuardarCambiosP').prop('disabled', false);
+        $('#btnGuardarCambios').prop('disabled', false);
         return;
     }
 
-    var preciot = parseFloat($("#txtPrecioPr").val().trim());
-    if (isNaN(preciot) || preciot === 0) {
-        toastr.warning("", "Debe ingresar un Monto válido");
-        $("#txtPrecioPr").focus();
-        // Rehabilitar el botón si es 0 o letra
-        $('#btnGuardarCambiosP').prop('disabled', false);
+    var correo = $("#txtCorreo").val().trim();
+
+    if (!esCorreoValido(correo)) {
+        toastr.warning("", "Debe ingresar un Correo válido");
+        $("#txtCorreo").focus();
+        $('#btnGuardarCambios').prop('disabled', false);
         return;
     }
 
-    //$('#btnGuardarCambios').prop('disabled', true);
 
-    if (parseInt($("#txtIdProducto").val()) === 0) {
+    if (parseInt($("#txtIdUsuario").val()) === 0) {
+        //swal("Mensaje", "Guardado.", "success")
+        //registerDataAjax();
         registerDataAjax();
     } else {
         //swal("Mensaje", "Falta para Actualizar personal.", "warning")
-        // Rehabilitar el botón en caso de advertencia
-        //$('#btnGuardarCambios').prop('disabled', false);
         editarDataAjaxU();
     }
 })

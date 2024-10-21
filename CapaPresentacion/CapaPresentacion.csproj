@@ -805,12 +805,18 @@
     <Content Include="assets\style.css" />
     <Content Include="assets\timepicker\bootstrap-timepicker.js" />
     <Content Include="assets\timepicker\bootstrap-timepicker.min.css" />
+    <Content Include="css\inpfile.css" />
     <Content Include="css\productes.css" />
     <Content Include="css\sb-admin-2.css" />
     <Content Include="css\sb-admin-2.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="FrmCategorias.aspx" />
+    <Content Include="FrmConsultaVenta.aspx" />
+    <Content Include="FrmDocVenta.aspx" />
     <Content Include="FrmProductos.aspx" />
     <Content Include="FrmReservas.aspx" />
+    <Content Include="FrmUsuarios.aspx" />
+    <Content Include="FrmVentaCaja.aspx" />
     <Content Include="FrmVentaReserva.aspx" />
     <Content Include="ImagenesPro\05b53485-329c-4b37-8f1f-76ea6f5f4848.jpg" />
     <Content Include="ImagenesPro\0a4af4f4-93e6-4a32-9ced-7669bc4eca51.jpg" />
@@ -833,6 +839,7 @@
     <Content Include="Imagenes\6f298d87-86ae-45ea-927a-8c08dbf152b0.jpg" />
     <Content Include="Imagenes\d4ee05b0-e855-431e-9f7f-8a99cfd3deb6.jpg" />
     <Content Include="Imagenes\df261d0b-5822-441b-bde3-75e868bc4c43.jpg" />
+    <Content Include="Imagenes\logo1d.png" />
     <Content Include="Imagenes\Sinfotop.png" />
     <Content Include="img\undraw_posting_photo.svg" />
     <Content Include="img\undraw_profile.svg" />
@@ -842,8 +849,13 @@
     <Content Include="img\undraw_rocket.svg" />
     <Content Include="Inicio.aspx" />
     <Content Include="js\Default.js" />
+    <Content Include="js\FrmCategorias.js" />
+    <Content Include="js\FrmConsultaVenta.js" />
+    <Content Include="js\FrmDocVenta.js" />
     <Content Include="js\FrmProductos.js" />
     <Content Include="js\FrmReservas.js" />
+    <Content Include="js\FrmUsuarios.js" />
+    <Content Include="js\FrmVentaCaja.js" />
     <Content Include="js\FrmVentaReserva.js" />
     <Content Include="js\Login.js" />
     <Content Include="js\sb-admin-2.js" />
@@ -2561,6 +2573,27 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FrmCategorias.aspx.cs">
+      <DependentUpon>FrmCategorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmCategorias.aspx.designer.cs">
+      <DependentUpon>FrmCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmConsultaVenta.aspx.cs">
+      <DependentUpon>FrmConsultaVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmConsultaVenta.aspx.designer.cs">
+      <DependentUpon>FrmConsultaVenta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDocVenta.aspx.cs">
+      <DependentUpon>FrmDocVenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmDocVenta.aspx.designer.cs">
+      <DependentUpon>FrmDocVenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FrmProductos.aspx.cs">
       <DependentUpon>FrmProductos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2574,6 +2607,20 @@
     </Compile>
     <Compile Include="FrmReservas.aspx.designer.cs">
       <DependentUpon>FrmReservas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmUsuarios.aspx.cs">
+      <DependentUpon>FrmUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmUsuarios.aspx.designer.cs">
+      <DependentUpon>FrmUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FrmVentaCaja.aspx.cs">
+      <DependentUpon>FrmVentaCaja.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FrmVentaCaja.aspx.designer.cs">
+      <DependentUpon>FrmVentaCaja.aspx</DependentUpon>
     </Compile>
     <Compile Include="FrmVentaReserva.aspx.cs">
       <DependentUpon>FrmVentaReserva.aspx</DependentUpon>

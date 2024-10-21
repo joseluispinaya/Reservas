@@ -23,9 +23,28 @@ namespace CapaNegocio
         }
         #endregion
 
+        public int RegistrarVentaIdclie(string Detalle)
+        {
+            return DVenta.GetInstance().RegistrarVentaIdclie(Detalle);
+        }
+
+        //registro con cliente y sus campos
+        public int RegistrarVentaNuev(string Detalle)
+        {
+            return DVenta.GetInstance().RegistrarVentaNuev(Detalle);
+        }
         public int RegistrarVentaIdclieEstado(string Detalle)
         {
             return DVenta.GetInstance().RegistrarVentaIdclieEstado(Detalle);
+        }
+
+        public Respuesta<EVenta> ObtenerDetalleVenta(int IdVenta)
+        {
+            return DVenta.GetInstance().ObtenerDetalleVenta(IdVenta);
+        }
+        public List<EVenta> ObtenerListaVentaa()
+        {
+            return DVenta.GetInstance().ObtenerListaVentaa();
         }
     }
 }

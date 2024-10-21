@@ -29,6 +29,116 @@ namespace CapaDatos
         }
         #endregion
 
+        public Respuesta<bool> RegistrarCategoria(ECategoria producto)
+        {
+            try
+            {
+                bool respuesta = false;
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_RegistrarCategoria", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
+
+                        SqlParameter outputParam = new SqlParameter("@Resultado", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        respuesta = Convert.ToBoolean(outputParam.Value);
+                    }
+                }
+                return new Respuesta<bool>
+                {
+                    Estado = respuesta,
+                    Mensaje = respuesta ? "Se registro correctamente" : "Error al registrar Intente más tarde"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<bool> { Estado = false, Mensaje = "Ocurrió un error: " + ex.Message };
+            }
+        }
+
+        public Respuesta<bool> ActualiCategoria(ECategoria producto)
+        {
+            try
+            {
+                bool respuesta = false;
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_ModificarCategoria", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@IdCategoria", producto.IdCategoria);
+                        cmd.Parameters.AddWithValue("@Descripcion", producto.Descripcion);
+                        cmd.Parameters.AddWithValue("@Activo", producto.Activo);
+
+                        SqlParameter outputParam = new SqlParameter("@Resultado", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        respuesta = Convert.ToBoolean(outputParam.Value);
+                    }
+                }
+                return new Respuesta<bool>
+                {
+                    Estado = respuesta,
+                    Mensaje = respuesta ? "Se Actualizo correctamente" : "Error al Actualizar intente mas tarde"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<bool> { Estado = false, Mensaje = "Ocurrió un error: " + ex.Message };
+            }
+        }
+
+        public Respuesta<bool> EliminarCategoria(int Idcate)
+        {
+            try
+            {
+                bool respuesta = false;
+                using (SqlConnection con = ConexionBD.GetInstance().ConexionDB())
+                {
+                    using (SqlCommand cmd = new SqlCommand("usp_EliminarCategoria", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@IdCategoria", Idcate);
+
+                        SqlParameter outputParam = new SqlParameter("@Resultado", SqlDbType.Bit)
+                        {
+                            Direction = ParameterDirection.Output
+                        };
+                        cmd.Parameters.Add(outputParam);
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        respuesta = Convert.ToBoolean(outputParam.Value);
+                    }
+                }
+                return new Respuesta<bool>
+                {
+                    Estado = respuesta,
+                    Mensaje = respuesta ? "Eliminado correctamente" : "No se pudo Eliminar la Categoria tiene una relacion con un Producto"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Respuesta<bool> { Estado = false, Mensaje = "Ocurrió un error: " + ex.Message };
+            }
+        }
+
         public Respuesta<List<ECategoria>> ObtenerCatego()
         {
             try

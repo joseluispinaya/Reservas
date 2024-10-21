@@ -23,9 +23,27 @@ namespace CapaNegocio
         }
         #endregion
 
+        public Respuesta<bool> RegistrarUsuario(EUsuario oUsuario)
+        {
+            return DUsuario.GetInstance().RegistrarUsuario(oUsuario);
+        }
+
+        public Respuesta<bool> ActualizarUsuario(EUsuario oUsuario)
+        {
+            return DUsuario.GetInstance().ActualizarUsuario(oUsuario);
+        }
+        public Respuesta<List<EUsuario>> ObtenerUsuarios()
+        {
+            return DUsuario.GetInstance().ObtenerUsuariosZ();
+        }
         public int LoginUsuarioA(string Usuario, string Clave)
         {
             return DUsuario.GetInstance().LoginUsuarioA(Usuario, Clave);
+        }
+
+        public List<ERol> ObtenerRol()
+        {
+            return DUsuario.GetInstance().ObtenerRol();
         }
     }
 }

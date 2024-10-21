@@ -23,6 +23,18 @@ namespace CapaNegocio
         }
         #endregion
 
+        public Respuesta<bool> RegistrarCategoria(ECategoria producto)
+        {
+            return DCategoria.GetInstance().RegistrarCategoria(producto);
+        }
+        public Respuesta<bool> ActualiCategoria(ECategoria producto)
+        {
+            return DCategoria.GetInstance().ActualiCategoria(producto);
+        }
+        public Respuesta<bool> EliminarCategoria(int Idcate)
+        {
+            return DCategoria.GetInstance().EliminarCategoria(Idcate);
+        }
         public Respuesta<List<ECategoria>> ObtenerCategorias()
         {
             return DCategoria.GetInstance().ObtenerCategorias();
