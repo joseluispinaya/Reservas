@@ -93,8 +93,8 @@ namespace CapaPresentacion
         {
             try
             {
-                var from = "susidelta1@gmail.com";
-                var name = "Itsa Riberalta";
+                var from = "corrreo propia";
+                var name = "Restaurante Tropical";
                 var smtps = "smtp.gmail.com";
                 var port = 587;
                 var password = "nzqvzulfoqrbemuu";
@@ -110,7 +110,7 @@ namespace CapaPresentacion
                     "    <table style='width:100%'>" +
                     "        <tr>" +
                     "            <td align='center' colspan='2'>" +
-                    "                <h2 style='color:#004DAF'>Bienvenido a Itsa Ribealta</h2>" +
+                    "                <h2 style='color:#004DAF'>Bienvenido a El Tropical</h2>" +
                     "            </td>" +
                     "        </tr>" +
                     "        <tr>" +

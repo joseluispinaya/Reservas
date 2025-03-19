@@ -65,7 +65,7 @@
                 <div id="collapseAdministracion" class="collapse" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="FrmUsuarios.aspx">Usuarios</a>
-                        <a class="collapse-item" href="#">Negocio</a>
+                        <%--<a class="collapse-item" href="#">Negocio</a>--%>
                     </div>
                 </div>
             </li>
@@ -93,7 +93,7 @@
                 <div id="collapseVenta" class="collapse" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="FrmVentaCaja.aspx">Nueva Venta</a>
-                        <a class="collapse-item" href="FrmConsultaVenta.aspx">Historial Venta</a>
+                        
                     </div>
                 </div>
             </li>
@@ -112,7 +112,8 @@
                 </a>
                 <div id="collapseReportes" class="collapse" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="FrmReportProducto.aspx">Reporte de Ventas</a>
+                        <%--<a class="collapse-item" href="FrmReportProducto.aspx">Reporte de Ventas</a>--%>
+                        <a class="collapse-item" href="FrmConsultaVenta.aspx">Reporte Venta</a>
                     </div>
                 </div>
             </li>
